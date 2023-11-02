@@ -1,0 +1,70 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card" [formGroup]="formCreateTemplate">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-12 card-header">
+                            <span class="card-title">Crear plantilla</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 input-box">
+                            <mat-form-field appearance="legacy" hideRequiredMarker>
+                                <mat-label>Nombre</mat-label>
+                                <input matInput [readonly]="isCreating" formControlName="name" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 input-box">
+                            <mat-form-field appearance="legacy" hideRequiredMarker>
+                                <mat-label>Tipo</mat-label>
+                                <mat-select [disabled]="isCreating" formControlName="type">
+                                    <mat-option value="FORMS">Formularios</mat-option>
+                                    <mat-option value="TABLES">Tablas</mat-option>
+                                    <mat-option value="INVOICES">Facturas</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 card input-file-box">
+                            <div class="row">
+                                <div class="col-6 input-fileupload-box">
+                                    <button mat-button mat-stroked-button class="btn-upload-file"
+                                        (click)="inputFile.click()" [disabled]="isCreating">
+                                        Seleccionar archivo
+                                    </button>
+                                    <span class="filename" [title]="selectedFilename">{{ selectedFilename }}</span>
+                                    <input #inputFile type="file" class="invisible" (change)="selectFile($event)"
+                                        accept=".jpg,.jpeg,.png,.pdf" formControlName="file" />
+                                </div>
+
+                                <div class="col-6">
+                                    <mat-progress-bar *ngIf="isCreating" class="animate__animated animate__fadeIn"
+                                        mode="determinate" [value]="progressCreatingTemplate"></mat-progress-bar>
+                                    <span *ngIf="isCreating">{{ progressCreatingTemplate }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button mat-stroked-button routerLink="/app/3" class="btn-cancel" [disabled]="isCreating">
+                                Cancelar
+                            </button>
+                            <button mat-stroked-button color="primary" (click)="createTemplate()"
+                                [disabled]="isCreating">
+                                Crear plantilla
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

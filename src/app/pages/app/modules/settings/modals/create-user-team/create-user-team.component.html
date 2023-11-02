@@ -1,0 +1,42 @@
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Crear usuario</h4>
+        </div>
+    </div>
+
+    <div class="row" [formGroup]="formCreate">
+        <div class="col-md-4">
+            <mat-form-field appearance="legacy" hideRequiredMarker>
+                <mat-label>Nombre</mat-label>
+                <input matInput [readonly]="isCreating" formControlName="name" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="legacy" hideRequiredMarker>
+                <mat-label>Correo electrónico</mat-label>
+                <input matInput [readonly]="isCreating" formControlName="email" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-md-4">
+            <mat-form-field appearance="legacy" hideRequiredMarker>
+                <mat-label>Contraseña</mat-label>
+                <input matInput [readonly]="isCreating" type="password" formControlName="password" />
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-buttons" *ngIf="!isCreating">
+                <button mat-stroked-button color="warn" class="btn-cancel" (click)="close()">Cancelar</button>
+                <button mat-stroked-button color="primary" (click)="create()">Crear</button>
+            </div>
+
+            <mat-progress-bar *ngIf="isCreating" class="animate__animated animate__fadeIn"
+                mode="indeterminate"></mat-progress-bar>
+        </div>
+    </div>
+</div>

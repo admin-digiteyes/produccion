@@ -1,0 +1,276 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card table">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-7 card-header">
+                            <span class="card-title">Mis plantillas</span>
+                            <span class="card-subtitle">Listado</span>
+                        </div>
+
+                        <div class="col-5">
+                            <button
+                                mat-icon-button
+                                mat-stroked-button
+                                color="primary"
+                                class="card-btn-header-menu"
+                                matTooltip="Crear plantilla"
+                                routerLink="/app/template/create"
+                            >
+                                <mat-icon>add</mat-icon>
+                            </button>
+                            <mat-icon
+                                color="primary"
+                                class="help-icon-refresh"
+                                matTooltip="Cuando se actualiza/crea una plantilla, la lista se refresca automáticamente"
+                                >help</mat-icon
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Titles -->
+                    <div class="row">
+                        <div class="col table-header">
+                            <span class="table-header-title"> Nombre </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Tipo plantilla
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Campos </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Estado </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Acciones </span>
+                        </div>
+                    </div>
+
+                    <!-- Fields -->
+                    <div class="table-fields">
+                        <div
+                            class="row"
+                            *ngFor="let template of templates; let i = index"
+                        >
+                            <div
+                                class="col table-body"
+                                [title]="template.name"
+                                [formGroup]="formEditTemplate"
+                            >
+                                <span
+                                    class="table-body-data"
+                                    *ngIf="editTemplateIndex != template.id"
+                                    >{{ template.name }}</span
+                                >
+
+                                <mat-form-field
+                                    appearance="legacy"
+                                    hideRequiredMarker
+                                    (keyup.enter)="deleteTemplate(template)"
+                                    *ngIf="editTemplateIndex == template.id"
+                                >
+                                    <input matInput formControlName="name" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col table-body">
+                                <span>{{ template.type }}</span>
+                            </div>
+
+                            <div class="col table-body">
+                                <span
+                                    class="table-link no-select"
+                                    (click)="showFormFields(template)"
+                                    >Mostrar</span
+                                >
+                            </div>
+
+                            <div class="col table-body">
+                                <mat-chip-list>
+                                    <mat-chip
+                                        disableRipple
+                                        class="no-select"
+                                        [ngClass]="{
+                                            'mat-chip-error':
+                                                template.status == 'ERRORED',
+                                            'mat-chip-success':
+                                                template.status == 'COMPLETED',
+                                            'mat-chip-pending':
+                                                template.status == 'PENDING'
+                                        }"
+                                        >{{ template.status }}</mat-chip
+                                    >
+                                </mat-chip-list>
+                            </div>
+
+                            <div class="col table-body">
+                                <button
+                                    mat-icon-button
+                                    [color]="
+                                        editTemplateIndex == template.id
+                                            ? 'warn'
+                                            : 'primary'
+                                    "
+                                    [matTooltip]="
+                                        editTemplateIndex == template.id
+                                            ? 'Cancelar edición'
+                                            : 'Editar'
+                                    "
+                                    (click)="showEditTemplate(template)"
+                                >
+                                    <mat-icon>{{
+                                        editTemplateIndex == template.id
+                                            ? "close"
+                                            : "edit"
+                                    }}</mat-icon>
+                                </button>
+                                <button
+                                    mat-icon-button
+                                    [color]="
+                                        editTemplateIndex == template.id
+                                            ? 'primary'
+                                            : 'warn'
+                                    "
+                                    [matTooltip]="
+                                        editTemplateIndex == template.id
+                                            ? 'Aceptar'
+                                            : 'Borrar'
+                                    "
+                                    (click)="deleteTemplate(template)"
+                                >
+                                    <mat-icon>{{
+                                        editTemplateIndex == template.id
+                                            ? "done"
+                                            : "delete"
+                                    }}</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginator -->
+                    <mat-paginator
+                        [length]="templatesPaginator.length"
+                        [pageSize]="templatesPaginator.pageSize"
+                        [pageIndex]="templatesPaginator.pageIndex"
+                        (page)="paginate($event)"
+                        [disabled]="isPaginating"
+                    >
+                    </mat-paginator>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-8 card-header">
+                            <span class="card-title">Mis plantillas</span>
+                            <span class="card-subtitle">Resumen</span>
+                        </div>
+
+                        <div class="col-4">
+                            <button
+                                mat-icon-button
+                                mat-stroked-button
+                                class="card-btn-header-menu"
+                                matTooltip="Refrescar lista de plantillas"
+                                (click)="paginate()"
+                            >
+                                <mat-icon>refresh</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge success">
+                                <mat-icon>done</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Completados</span>
+                            <span
+                                class="card-badge-subtitle success animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating"
+                                >{{ sumaryTemplate.completeds }}</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge pending">
+                                <mat-icon>autorenew</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Pendientes</span>
+                            <span
+                                class="card-badge-subtitle pending animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating"
+                                >{{ sumaryTemplate.pending }}</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge errored">
+                                <mat-icon>warning</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Errores</span>
+                            <span
+                                class="card-badge-subtitle errored animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating"
+                                >{{ sumaryTemplate.errored }}</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-footer">
+                                <span
+                                    >Este registro se basa en el total de tus
+                                    plantillas</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-footer-title">
+                                <span
+                                    *ngIf="!isPaginating"
+                                    class="animate__animated animate__fadeIn"
+                                    >Total de registros:
+                                    {{
+                                        sumaryTemplate.completeds +
+                                            sumaryTemplate.pending +
+                                            sumaryTemplate.errored
+                                    }}
+                                </span>
+
+                                <mat-progress-bar
+                                    *ngIf="isPaginating"
+                                    class="animate__animated animate__fadeIn"
+                                    mode="indeterminate"
+                                ></mat-progress-bar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

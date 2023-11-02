@@ -1,0 +1,24 @@
+.box-card-security {
+    margin-bottom: 2rem;
+}
+
+.msg-error-input {
+    color: rgb(205, 45, 45);
+    width: max-content;
+}
+
+.box-input {
+    margin-top: 1rem;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.box-btn-save-changes {
+    margin-top: 1rem;
+}
+
+.loading-security {
+    margin-top: 1rem;
+}

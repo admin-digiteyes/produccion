@@ -1,0 +1,10 @@
+p {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-overflow: ellipsis;
+    text-rendering: optimizeLegibility;
+    text-indent: 0px;
+    color: rgb(100, 116, 139);
+    text-align: center;
+}

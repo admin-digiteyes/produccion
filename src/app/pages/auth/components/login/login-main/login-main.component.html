@@ -1,0 +1,117 @@
+<notifier-container></notifier-container>
+
+<div class="main">
+    <div class="container bg-main animate__animated animate__fadeIn">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="/assets/img/logo_azul_oscuro.png" class="img-brand" />
+                </div>
+            </div>
+
+            <div class="container box-login">
+                <div class="row">
+                    <div
+                        class="col-md-6"
+                        data-aos="flip-left"
+                        data-aos-delay="0"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-duration="500"
+                    >
+                        <div class="mx-auto w-max" [formGroup]="formLogin">
+                            <h1 class="text-center title">Bienvenido</h1>
+
+                            <div class="form__group field">
+                                <input
+                                    type="text"
+                                    class="form__field"
+                                    placeholder="Correo"
+                                    formControlName="email"
+                                    id="correo"
+                                    (keyup.enter)="login()"
+                                />
+                                <label
+                                    for="correo"
+                                    class="form__label no-select"
+                                    >Correo</label
+                                >
+                                <span
+                                    class="msg-error-input animate__animated animate__fadeIn"
+                                    *ngIf="email?.touched && email?.errors?.['required']"
+                                    >Digite su correo</span
+                                >
+
+                                <span
+                                    class="msg-error-input animate__animated animate__fadeIn"
+                                    *ngIf="email?.touched && email?.errors?.['email']"
+                                    >Digite un correo válido</span
+                                >
+                            </div>
+
+                            <br />
+
+                            <div class="form__group field">
+                                <input
+                                    type="password"
+                                    class="form__field"
+                                    placeholder="Contraseña"
+                                    formControlName="password"
+                                    id="password"
+                                    (keyup.enter)="login()"
+                                />
+                                <label
+                                    for="password"
+                                    class="form__label no-select"
+                                    >Contraseña</label
+                                >
+                                <span
+                                    class="msg-error-input animate__animated animate__fadeIn"
+                                    *ngIf="password?.touched && password?.errors?.['required']"
+                                    >Digite su contraseña</span
+                                >
+
+                                <span
+                                    class="msg-error-input animate__animated animate__fadeIn"
+                                    *ngIf="password?.touched && password?.errors?.['minlength']"
+                                    >Debe tener mínimo 6 caracteres</span
+                                >
+
+                                <span
+                                    class="msg-error-input animate__animated animate__fadeIn"
+                                    *ngIf="password?.touched && password?.errors?.['maxlength']"
+                                    >Debe tener máximo 30 caracteres</span
+                                >
+                            </div>
+
+                            <button
+                                mat-stroked-button
+                                color="primary"
+                                class="btn-login mx-auto"
+                                (click)="login()"
+                                *ngIf="!isLogin"
+                            >
+                                Iniciar sesión
+                            </button>
+
+                            <mat-progress-bar *ngIf="isLogin" mode="indeterminate" class="mx-auto"></mat-progress-bar>
+                        </div>
+                    </div>
+
+                    <div
+                        class="col-md-6"
+                        data-aos="flip-up"
+                        data-aos-delay="300"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-duration="1000"
+                    >
+                     <!--   <img
+                            src="/assets/img/login.png"
+                            class="img-login mx-auto"
+                            alt=""
+                        />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

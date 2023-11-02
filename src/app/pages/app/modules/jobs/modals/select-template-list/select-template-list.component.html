@@ -1,0 +1,109 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card table">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-8 card-header">
+                            <span class="card-title">Mis plantillas</span>
+                            <span class="card-subtitle">Listado</span>
+                        </div>
+
+                        <div class="col-4">
+                            <button
+                                mat-icon-button
+                                mat-stroked-button
+                                color="warn"
+                                class="card-btn-header-menu"
+                                matTooltip="Salir"
+                                (click)="selectTemplate()"
+                            >
+                                <mat-icon>logout</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Titles -->
+                    <div class="row">
+                        <div class="col table-header">
+                            <span class="table-header-title"> Nombre </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Tipo plantilla
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Estado </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Acción </span>
+                        </div>
+                    </div>
+
+                    <!-- Fields -->
+                    <div class="table-fields">
+                        <div
+                            class="row"
+                            *ngFor="let template of templates; let i = index"
+                        >
+                            <div class="col table-body" [title]="template.name">
+                                <span class="table-body-data">{{
+                                    template.name
+                                }}</span>
+                            </div>
+
+                            <div class="col table-body">
+                                <span>{{ template.type }}</span>
+                            </div>
+
+                            <div class="col table-body">
+                                <mat-chip-list>
+                                    <mat-chip
+                                        disableRipple
+                                        class="no-select"
+                                        [ngClass]="{
+                                            'mat-chip-error':
+                                                template.status == 'ERRORED',
+                                            'mat-chip-success':
+                                                template.status == 'COMPLETED',
+                                            'mat-chip-pending':
+                                                template.status == 'PENDING'
+                                        }"
+                                        >{{ template.status }}</mat-chip
+                                    >
+                                </mat-chip-list>
+                            </div>
+
+                            <div class="col table-body">
+                                <button
+                                    mat-icon-button
+                                    mat-stroked-button
+                                    color="primary"
+                                    matTooltip="Seleccionar plantilla"
+                                    (click)="selectTemplate(template)"
+                                >
+                                    <mat-icon>done</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginator -->
+                    <mat-paginator
+                        [length]="templatesPaginator.length"
+                        [pageSize]="templatesPaginator.pageSize"
+                        [pageIndex]="templatesPaginator.pageIndex"
+                        (page)="paginate($event)"
+                        [disabled]="isPaginating"
+                    >
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

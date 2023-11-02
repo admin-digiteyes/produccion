@@ -1,0 +1,126 @@
+<div class="col-md-12 main animate__animated animate__fadeIn">
+    <div class="row">
+        <div class="col-lg-6">
+            <div *ngIf="!data.template[0].joined" cdkDropList class="forms-list" (cdkDropListDropped)="onDrop($event)"
+                [cdkDropListDisabled]="isUpdating">
+                <div class="forms-list-item forms-list-item-select-all">
+                    <mat-slide-toggle color="primary" [checked]="isCheckedAll" (change)="selectAll()"
+                        [disabled]="isUpdating">Seleccionar todos</mat-slide-toggle>
+                    <mat-icon color="primary"
+                        matTooltip="Para poder ordenar algún campo debe estar habilitado">help</mat-icon>
+                </div>
+
+                <div class="forms-list-item" [ngClass]="form.enabled ? 'enabled' : ''"
+                    *ngFor="let form of (formsControl | sortFormControls); let i = index" cdkDrag
+                    [cdkDragDisabled]="!form.enabled">
+                    <div class="form-list-item-box" *cdkDragPlaceholder></div>
+                    <mat-slide-toggle color="primary" [checked]="form.enabled" [disabled]="isUpdating"
+                        (change)="toggleForm(form)">{{ form.name }}</mat-slide-toggle>
+                </div>
+            </div>
+
+            <div *ngIf="data.template[0].joined">
+                <h5>Form</h5>
+
+                <div cdkDropList class="forms-list"
+                    (cdkDropListDropped)="onDrop($event)" [cdkDropListDisabled]="isUpdating">
+                    <div class="forms-list-item forms-list-item-select-all">
+                        <mat-slide-toggle color="primary" [checked]="isCheckedAll" (change)="selectAll()"
+                            [disabled]="isUpdating || formsControl.length == 0">Seleccionar todos</mat-slide-toggle>
+                        <mat-icon color="primary"
+                            matTooltip="Para poder ordenar algún campo debe estar habilitado">help</mat-icon>
+                    </div>
+
+                    <div class="forms-list-item" [ngClass]="form.enabled ? 'enabled' : ''"
+                        *ngFor="let form of (formsControl | sortFormControls); let i = index" cdkDrag
+                        [cdkDragDisabled]="!form.enabled">
+                        <div class="form-list-item-box" *cdkDragPlaceholder></div>
+                        <mat-slide-toggle color="primary" [checked]="form.enabled" [disabled]="isUpdating"
+                            (change)="toggleForm(form)">{{ form.name }}</mat-slide-toggle>
+                    </div>
+                </div>
+
+                <h5>Table</h5>
+
+                <div cdkDropList class="forms-list"
+                    (cdkDropListDropped)="onDrop($event, true)" [cdkDropListDisabled]="isUpdating">
+                    <div class="forms-list-item forms-list-item-select-all">
+                        <mat-slide-toggle color="primary" [checked]="isCheckedAllJoined" (change)="selectAll(true)"
+                            [disabled]="isUpdating || formsControlJoined.length == 0">Seleccionar todos</mat-slide-toggle>
+                        <mat-icon color="primary"
+                            matTooltip="Para poder ordenar algún campo debe estar habilitado">help</mat-icon>
+                    </div>
+
+                    <div class="forms-list-item" [ngClass]="form.enabled ? 'enabled' : ''"
+                        *ngFor="let form of (formsControlJoined | sortFormControls); let i = index" cdkDrag
+                        [cdkDragDisabled]="!form.enabled">
+                        <div class="form-list-item-box" *cdkDragPlaceholder></div>
+                        <mat-slide-toggle color="primary" [checked]="form.enabled" [disabled]="isUpdating"
+                            (change)="toggleForm(form, true)">{{ form.name }}</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="row">
+                    <div class="col-8 card-header">
+                        <span class="card-title">Campos</span>
+                        <span class="card-subtitle">Resumen</span>
+                    </div>
+
+                    <div class="col-4">
+                        <button mat-icon-button class="card-btn-header-menu" matTooltip="Salir" matDialogClose>
+                            <mat-icon>logout</mat-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-badge info">
+                            <mat-icon>visibility_on</mat-icon>
+                        </div>
+
+                        <span class="card-badge-title">Habilitados</span>
+                        <span class="card-badge-subtitle info animate__animated animate__fadeIn" *ngIf="!isUpdating">{{
+                            formsInUse }}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-badge pending">
+                            <mat-icon>visibility_off</mat-icon>
+                        </div>
+
+                        <span class="card-badge-title">Deshabilitados</span>
+                        <span class="card-badge-subtitle pending animate__animated animate__fadeIn"
+                            *ngIf="!isUpdating">{{ formsDisabled }}</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-footer">
+                            <span>Este registro se basa en el total de tus
+                                campos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-footer-title">
+                            <span *ngIf="!isUpdating" class="animate__animated animate__fadeIn">Total de campos:
+                                {{ formsControl.length }}</span>
+                            <mat-progress-bar *ngIf="isUpdating" class="animate__animated animate__fadeIn"
+                                mode="indeterminate"></mat-progress-bar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

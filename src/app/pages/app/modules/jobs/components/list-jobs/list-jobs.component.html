@@ -1,0 +1,206 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xl-8">
+                <div class="card table">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-7 card-header">
+                            <span class="card-title">Análisis</span>
+                            <span class="card-subtitle">Listado</span>
+                        </div>
+
+                        <div class="col-5">
+                            <button mat-icon-button mat-stroked-button class="card-btn-header-menu"
+                                matTooltip="Analizar documentos" routerLink="/app/job/analyze">
+                                <mat-icon>format_shapes</mat-icon>
+                            </button>
+                            <mat-icon color="primary" class="help-icon-refresh"
+                                matTooltip="Cuando se actualiza/crea un análisis, la lista se refresca automáticamente">help</mat-icon>
+                        </div>
+                    </div>
+
+                    <!-- Titles -->
+                    <div class="row">
+                        <div class="col table-header">
+                            <span class="table-header-title"> Documento </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Nombre plantilla
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Fecha actualizado
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Estado </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Acciones </span>
+                        </div>
+                    </div>
+
+                    <!-- Fields -->
+                    <div class="table-fields">
+                        <div class="row" *ngFor="let job of jobs; let i = index">
+                            <div #divInputE class="col table-body" [title]="job.uuid" aria-label="0">
+                                <span *ngIf="divInputE.ariaLabel == '0'"
+                                    class="animate__animated animate__fadeIn table-body-data"
+                                    (dblclick)="activeInputEdit(divInputE, inputE)">{{
+                                    job.filename_export
+                                    }}</span>
+
+                                <input #inputE type="text" class="animate__animated animate__fadeIn input-edit-filename"
+                                    [class.hidden]="divInputE.ariaLabel == '0'" [value]="job.filename_export"
+                                    (blur)="updateJob(job, inputE)" (keyup.enter)="[updateJob(job, inputE), divInputE.ariaLabel = '0']">
+                            </div>
+
+                            <div class="col table-body" [title]="job.idTemplate">
+                                <span class="table-body-data">{{
+                                    job.idTemplate
+                                    }}</span>
+                            </div>
+
+                            <div class="col table-body">
+                                <span class="table-body-data" [title]="
+                                        job.updated_at
+                                            | date: 'YYYY/mm/dd hh:mm a'
+                                    ">
+                                    {{
+                                    job.updated_at
+                                    | date: "YYYY/mm/dd hh:mm a"
+                                    }}
+                                </span>
+                            </div>
+
+                            <div class="col table-body">
+                                <mat-progress-bar *ngIf="job.status == 'PENDING'"
+                                    class="animate__animated animate__fadeIn progress-loading-pending"
+                                    mode="indeterminate"></mat-progress-bar>
+
+                                <mat-chip-list *ngIf="job.status != 'PENDING'">
+                                    <mat-chip disableRipple class="no-select" [ngClass]="{
+                                            'mat-chip-error':
+                                                job.status == 'ERRORED',
+                                            'mat-chip-success':
+                                                job.status == 'SUCCEEDED'
+                                        }">{{
+                                        job.status == "SUCCEEDED"
+                                        ? "COMPLETADO"
+                                        : job.status
+                                        }}</mat-chip>
+                                </mat-chip-list>
+                            </div>
+
+                            <div class="col table-body">
+                                <button mat-icon-button color="primary" matTooltip="Descargar"
+                                    (click)="downloadJob(job)" [disabled]="job.status != 'SUCCEEDED'">
+                                    <mat-icon>file_download</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="warn" matTooltip="Borrar"
+                                    [disabled]="job.status == 'PENDING'" (click)="deleteJob(job)">
+                                    <mat-icon> delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginator -->
+                    <mat-paginator [length]="jobsPaginator.length" [pageSize]="jobsPaginator.pageSize"
+                        [pageIndex]="jobsPaginator.pageIndex" (page)="paginate($event)" [disabled]="isPaginating">
+                    </mat-paginator>
+                </div>
+            </div>
+
+            <div class="col-xl-4">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-8 card-header">
+                            <span class="card-title">Documentos analizados</span>
+                            <span class="card-subtitle">Resumen</span>
+                        </div>
+
+                        <div class="col-4">
+                            <button mat-icon-button mat-stroked-button class="card-btn-header-menu"
+                                matTooltip="Refrescar lista de análisis" (click)="paginate()">
+                                <mat-icon>refresh</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge success">
+                                <mat-icon>done</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Completados</span>
+                            <span class="card-badge-subtitle success animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating">{{ sumaryJobs.succeededs }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge pending">
+                                <mat-icon>autorenew</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Pendientes</span>
+                            <span class="card-badge-subtitle pending animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating">{{ sumaryJobs.pending }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card-badge errored">
+                                <mat-icon>warning</mat-icon>
+                            </div>
+
+                            <span class="card-badge-title">Errores</span>
+                            <span class="card-badge-subtitle errored animate__animated animate__fadeIn"
+                                *ngIf="!isPaginating">{{ sumaryJobs.errored }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-footer">
+                                <span>Este registro se basa en el total de tus
+                                    documentos analizados</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-footer-title">
+                                <span *ngIf="!isPaginating" class="animate__animated animate__fadeIn">Total de
+                                    registros:
+                                    {{
+                                    sumaryJobs.succeededs +
+                                    sumaryJobs.pending +
+                                    sumaryJobs.errored
+                                    }}
+                                </span>
+
+                                <mat-progress-bar *ngIf="isPaginating" class="animate__animated animate__fadeIn"
+                                    mode="indeterminate"></mat-progress-bar>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

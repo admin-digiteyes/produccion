@@ -1,0 +1,87 @@
+::ng-deep .snackbar .mat-simple-snackbar-action {
+    color: inherit;
+}
+
+.card-badge-subtitle.success {
+    left: -85px;
+}
+
+.card-badge-subtitle.pending {
+    left: -71px;
+}
+
+.card-badge-subtitle.errored {
+    left: -45px;
+}
+
+/* Table */
+.table {
+    overflow-y: hidden;
+    width: 550px;
+}
+
+.table-fields {
+    min-height: 220px;
+}
+
+.table-header {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 0.0001rem lightgray;
+}
+
+.table-header-title {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: normal;
+    text-overflow: ellipsis;
+    text-rendering: optimizeLegibility;
+    text-indent: 0px;
+    color: rgb(100, 116, 139);
+    text-align: center;
+}
+
+.table-body {
+    margin-top: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 0.0001rem lightgray;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.table-body-data {
+    cursor: help;
+}
+
+.table-field {
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: solid 0.0001rem lightgray;
+}
+
+.table-link {
+    color: rgb(46, 46, 248);
+    font-size: 14px;
+}
+
+.table-link:hover {
+    color: rgb(3, 3, 170);
+    cursor: pointer;
+}
+
+.mat-chip-success {
+    background-color: #aefaae;
+    text-align: center;
+}
+
+.mat-chip-pending {
+    background-color: #ffea6f;
+    text-align: center;
+}
+
+.mat-chip-error {
+    background-color: #ff6060;
+    color: #fbfbfb;
+    text-align: center;
+}

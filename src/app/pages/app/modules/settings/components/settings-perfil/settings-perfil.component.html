@@ -1,0 +1,180 @@
+<notifier-container></notifier-container>
+
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-12 card-header">
+                            <span class="card-title">Datos personales</span>
+                            <span class="card-subtitle">Información</span>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="formPersonalInformation">
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label>Nombre</mat-label>
+                                <input
+                                    matInput
+                                    formControlName="name"
+                                    [readonly]="isUpdatingPersonalInformation"
+                                    (keyup.enter)="updatePersonalInformation()"
+                                />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label>Correo</mat-label>
+                                <input
+                                    matInput
+                                    formControlName="email"
+                                    [readonly]="isUpdatingPersonalInformation"
+                                    (keyup.enter)="updatePersonalInformation()"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="formPersonalInformation">
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label>Contraseña actual</mat-label>
+                                <input
+                                    type="password"
+                                    matInput
+                                    formControlName="current_password"
+                                    [readonly]="isUpdatingSecurity"
+                                    (keyup.enter)="updatePersonalInformation()"
+                                />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 box-btn-save-changes">
+                            <button
+                                *ngIf="!isUpdatingPersonalInformation"
+                                mat-button
+                                mat-stroked-button
+                                color="primary"
+                                (click)="updatePersonalInformation()"
+                            >
+                                Guardar cambios
+                            </button>
+                            <mat-progress-bar
+                                *ngIf="isUpdatingPersonalInformation"
+                                class="animate__animated animate__fadeIn"
+                                mode="indeterminate"
+                            ></mat-progress-bar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mx-auto box-card-security">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-12 card-header">
+                            <span class="card-title">Seguridad</span>
+                            <span class="card-subtitle">Contraseña</span>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="formSecurity">
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label>Contraseña nueva</mat-label>
+                                <input
+                                    type="password"
+                                    matInput
+                                    formControlName="new_password"
+                                    [readonly]="isUpdatingSecurity"
+                                    (keyup.enter)="updateSecurity()"
+                                />
+                            </mat-form-field>
+                            <span
+                                *ngIf="
+                                    newPassword?.value !=
+                                        confirmPassword?.value &&
+                                    newPassword?.touched &&
+                                    confirmPassword?.touched
+                                "
+                                class="msg-error-input animate__animated animate__fadeIn"
+                                >Las contraseñas no coinciden</span
+                            >
+                        </div>
+
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label
+                                    >Confirmar contraseña nueva</mat-label
+                                >
+                                <input
+                                    type="password"
+                                    matInput
+                                    formControlName="confirm_password"
+                                    [readonly]="isUpdatingSecurity"
+                                    (keyup.enter)="updateSecurity()"
+                                />
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row" [formGroup]="formSecurity">
+                        <div class="col-md-6 box-input">
+                            <mat-form-field
+                                appearance="legacy"
+                                hideRequiredMarker
+                            >
+                                <mat-label>Contraseña actual</mat-label>
+                                <input
+                                    type="password"
+                                    matInput
+                                    formControlName="current_password"
+                                    [readonly]="isUpdatingSecurity"
+                                    (keyup.enter)="updateSecurity()"
+                                />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 box-input">
+                            <button
+                                *ngIf="!isUpdatingSecurity"
+                                mat-button
+                                mat-stroked-button
+                                color="primary"
+                                (click)="updateSecurity()"
+                            >
+                                Cambiar contraseña
+                            </button>
+
+                            <mat-progress-bar
+                                *ngIf="isUpdatingSecurity"
+                                class="loading-security animate__animated animate__fadeIn"
+                                mode="indeterminate"
+                            ></mat-progress-bar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

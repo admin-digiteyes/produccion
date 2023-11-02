@@ -1,0 +1,180 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card" *ngIf="!(plans | async)?.length">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <ng-container *ngFor="let plan of plans | async">
+                    <div class="card" *ngIf="(planInfo | async)?.plan == plan.id">
+                        <div class="row">
+                            <div class="col-8 card-header">
+                                <span class="card-title">Plan actual</span>
+                                <span class="card-subtitle" *ngIf="(dataInfo | async)?.planActivated">&nbsp;</span>
+                                <span class="card-subtitle plan-inactive"
+                                    *ngIf="!(dataInfo | async)?.planActivated">Plan inactivo</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 card-body">
+                                <span class="card-body-title">Páginas analizadas</span>
+                                <span class="card-body-subtitle" [ngClass]="{
+                                        'plan-inactive':
+                                            (planInfo | async)?.usedPages! >=
+                                            plan.pages
+                                    }">{{ (planInfo | async)?.usedPages }}/{{
+                                    plan.pages
+                                    }}</span>
+                            </div>
+
+                            <div class="col-6 card-body">
+                                <span class="card-body-title">Almacenamiento</span>
+                                <span class="card-body-subtitle" [ngClass]="{
+                                    'plan-inactive':
+                                        (planInfo | async)?.usedStorage! >=
+                                        plan.storage
+                                }">{{ (planInfo | async)?.usedStorage }}/{{
+                                    plan.storage
+                                    }}
+                                    GB</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 card-body">
+                                <span class="card-body-title">Plan adquirido</span>
+                                <span class="card-body-subtitle">{{
+                                    plan.name
+                                    }}</span>
+                            </div>
+
+                            <div class="col-md-6 card-body">
+                                <span class="card-body-title">
+                                    {{ (userInfo | async)?.role == userRole.Admin ? 'Usuarios' : 'Plantillas' }}
+                                </span>
+                                <span class="card-body-subtitle">
+                                    {{ (userInfo | async)?.role == userRole.Admin ? (planInfo | async)?.users + '/' + plan.users :
+                                    (dataInfo | async)?.templates }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <mat-progress-bar mode="indeterminate"
+                        *ngIf="!dataChartDocuments.datasets.length"></mat-progress-bar>
+
+                    <ngx-chartjs type="doughnut" [data]="dataChartDocuments" [options]="optionsChartDocuments"
+                        *ngIf="dataChartDocuments.datasets.length"></ngx-chartjs>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <mat-progress-bar mode="indeterminate"
+                        *ngIf="!dataChartTemplates.datasets.length"></mat-progress-bar>
+
+                    <ngx-chartjs type="doughnut" [data]="dataChartTemplates" [options]="optionsChartTemplates"
+                        *ngIf="dataChartTemplates.datasets.length"></ngx-chartjs>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-center"></div>
+        </div>
+
+       <!-- <div class="row">
+            <div class="col-md-4">
+                <div class="card" *ngIf="!(plans | async)?.length">
+                    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                </div>
+
+                <ng-container *ngFor="let plan of plans | async">
+                    <div class="card" *ngIf="(planInfo | async)?.plan == plan.id">
+                        <div class="row">
+                            <div class="col-8 card-header">
+                                <span class="card-title">Plan actual</span>
+                                <span class="card-subtitle" *ngIf="(dataInfo | async)?.planActivated">&nbsp;</span>
+                                <span class="card-subtitle plan-inactive"
+                                    *ngIf="!(dataInfo | async)?.planActivated">Plan inactivo</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 card-body">
+                                <span class="card-body-title">Páginas analizadas</span>
+                                <span class="card-body-subtitle" [ngClass]="{
+                                        'plan-inactive':
+                                            (planInfo | async)?.usedPages! >=
+                                            plan.pages
+                                    }">{{ (planInfo | async)?.usedPages }}/{{
+                                    plan.pages
+                                    }}</span>
+                            </div>
+
+                            <div class="col-6 card-body">
+                                <span class="card-body-title">Almacenamiento</span>
+                                <span class="card-body-subtitle" [ngClass]="{
+                                    'plan-inactive':
+                                        (planInfo | async)?.usedStorage! >=
+                                        plan.storage
+                                }">{{ (planInfo | async)?.usedStorage }}/{{
+                                    plan.storage
+                                    }}
+                                    GB</span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 card-body">
+                                <span class="card-body-title">Plan adquirido</span>
+                                <span class="card-body-subtitle">{{
+                                    plan.name
+                                    }}</span>
+                            </div>
+
+                            <div class="col-md-6 card-body">
+                                <span class="card-body-title">
+                                    {{ (userInfo | async)?.role == userRole.Admin ? 'Usuarios' : 'Plantillas' }}
+                                </span>
+                                <span class="card-body-subtitle">
+                                    {{ (userInfo | async)?.role == userRole.Admin ? (planInfo | async)?.users + '/' + plan.users :
+                                    (dataInfo | async)?.templates }}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <mat-progress-bar mode="indeterminate"
+                        *ngIf="!dataChartDocuments.datasets.length"></mat-progress-bar>
+
+                    <ngx-chartjs type="doughnut" [data]="dataChartDocuments" [options]="optionsChartDocuments"
+                        *ngIf="dataChartDocuments.datasets.length"></ngx-chartjs>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <mat-progress-bar mode="indeterminate"
+                        *ngIf="!dataChartTemplates.datasets.length"></mat-progress-bar>
+
+                    <ngx-chartjs type="doughnut" [data]="dataChartTemplates" [options]="optionsChartTemplates"
+                        *ngIf="dataChartTemplates.datasets.length"></ngx-chartjs>
+                </div>
+            </div>
+        </div>
+
+-->
+
+    </div>
+</div>

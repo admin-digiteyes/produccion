@@ -1,0 +1,59 @@
+<notifier-container></notifier-container>
+
+<div class="col-12">
+    <mat-drawer-container class="main">
+        <mat-drawer #drawerMenu autosize="false" mode="side" class="no-select animate__animated animate__fadeIn" opened>
+            <div class="row fix-padding">
+                <div class="col-md-12">
+                    <div class="box-img-brand">
+                        <img src="/assets/img/logo_azul_fosforescente.png" class="img-brand" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row fix-padding" *ngFor="let menu of drawerMenus">
+                <div class="col-md-12 drawer-menu">
+                    <p class="drawer-title">{{ menu.title }}</p>
+
+                    <div class="row" *ngFor="let option of menu.options">
+                        <ng-container *ngIf="option | toggleMenuOption : (userInfo | async)?.role : (dataInfo | async)?.planActivated">
+                            <div class="col-md-12 drawer-menu-option" [routerLink]="[option.route]"
+                                routerLinkActive="active">
+                                <mat-icon *ngIf=" !option?.img" class="drawer-menu-option-icon">{{
+                                    option.icon
+                                    }}</mat-icon>
+                                    <img class="drawer-menu-option-img" *ngIf="option?.img " [src]="'/assets/img/' + option.icon">
+                                <span class="drawer-menu-option-title">{{
+                                    option.title
+                                    }}</span>
+                            </div>
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </mat-drawer>
+
+        <!-- Header main -->
+        <div class="row">
+            <div class="col-md-12 header-main">
+                <div class="row">
+                    <div class="col-4">
+                        <button mat-icon-button class="btn-toggle-drawer-menu" (click)="drawerMenu.toggle()">
+                            <mat-icon>menu</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="col-8">
+                        <span class="name-profile-main no-select">{{
+                            (userInfo | async)?.name
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIews -->
+        <router-outlet></router-outlet>
+    </mat-drawer-container>
+</div>

@@ -1,0 +1,91 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card table">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-7 card-header">
+                            <span class="card-title">Usuarios</span>
+                            <span class="card-subtitle">Listado</span>
+                        </div>
+
+                        <div class="col-5">
+                            <button mat-icon-button mat-stroked-button class="card-btn-header-menu"
+                                matTooltip="Crear usuario" (click)="addUserTeam()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Titles -->
+                    <div class="row">
+                        <div class="col table-header">
+                            <span class="table-header-title"> Nombre </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Correo electrónico
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title">
+                                Fecha actualizado
+                            </span>
+                        </div>
+
+                        <div class="col table-header">
+                            <span class="table-header-title"> Acciones </span>
+                        </div>
+                    </div>
+
+                    <!-- Fields -->
+                    <div class="table-fields">
+                        <div class="row" *ngFor="let user of users; let i = index">
+                            <div class="col table-body" [title]="user.id">
+                                <span class="table-body-data">{{
+                                    user.name
+                                    }}</span>
+                            </div>
+
+                            <div class="col table-body" [title]="user.email">
+                                <span class="table-body-data">{{
+                                    user.email
+                                    }}</span>
+                            </div>
+
+                            <div class="col table-body">
+                                <span class="table-body-data" [title]="
+                                        user.updated_at
+                                            | date: 'YYYY/mm/dd hh:mm a'
+                                    ">
+                                    {{
+                                    user.updated_at
+                                    | date: "YYYY/mm/dd hh:mm a"
+                                    }}
+                                </span>
+                            </div>
+
+                            <div class="col table-body">
+                                <button mat-icon-button color="primary" matTooltip="Descargar">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+
+                                <button mat-icon-button color="warn" matTooltip="Borrar" (click)="removeUserTeam(user)">
+                                    <mat-icon> delete</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Paginator -->
+                    <mat-paginator [length]="usersPaginator.length" [pageSize]="usersPaginator.pageSize"
+                        [pageIndex]="usersPaginator.pageIndex" (page)="paginate($event)" [disabled]="isPaginating">
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

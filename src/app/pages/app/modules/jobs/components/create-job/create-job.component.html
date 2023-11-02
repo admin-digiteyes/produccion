@@ -1,0 +1,133 @@
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-12 card-header">
+                            <span class="card-title">Analizar documentos</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 input-box">
+                            <button
+                                mat-button
+                                mat-stroked-button
+                                class="btn-select-template"
+                                (click)="selectTemplate()"
+                            >
+                                {{
+                                    selectedTemplate
+                                        ? selectedTemplate.name
+                                        : "Seleccionar plantilla"
+                                }}
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 loading-box">
+                            <mat-progress-bar
+                                *ngIf="isCreating"
+                                class="animate__animated animate__fadeIn"
+                                mode="determinate"
+                                [value]="progressCreatingTemplate"
+                            ></mat-progress-bar>
+                            <span *ngIf="isCreating"
+                                >{{ progressCreatingTemplate }}%</span
+                            >
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 box-btn-actions">
+                            <button
+                                mat-stroked-button
+                                routerLink="/app/5"
+                                class="btn-cancel"
+                                [disabled]="isCreating"
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                mat-stroked-button
+                                color="primary"
+                                (click)="runAnalysis()"
+                                [disabled]="isCreating"
+                            >
+                                Iniciar análisis
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <!-- Header -->
+                    <div class="row">
+                        <div class="col-12 card-header">
+                            <span class="card-title">Documentos</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 main-box-select-file">
+                            <button
+                                mat-button
+                                mat-stroked-button
+                                class="btn-select-file"
+                                (click)="inputFile.click()"
+                                [disabled]="isCreating"
+                            >
+                                Seleccionar archivos
+                            </button>
+                            <input
+                                #inputFile
+                                type="file"
+                                class="invisible"
+                                (change)="selectFile($event)"
+                                accept=".jpg,.jpeg,.png,.pdf"
+                                multiple
+                            />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-list-files">
+                                <div
+                                    class="row"
+                                    *ngFor="let file of selectedFiles"
+                                >
+                                    <div
+                                        class="col-md-12 item-file animate__animated animate__fadeIn"
+                                    >
+                                        <span
+                                            class="name-item-file"
+                                            [title]="file.name"
+                                            >{{ file.name }}</span
+                                        >
+                                        <button
+                                            mat-icon-button
+                                            mat-stroked-button
+                                            class="btn-remove-item-file"
+                                            color="warn"
+                                            matTooltip="Quitar archivo"
+                                            (click)="removeFIle(file)"
+                                        >
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+.main {
+    height: 100vh;
+    background-color: #f1f5f9;
+}
+
+.box-img-brand {
+    margin-top: 1rem;
+    border-radius: 8px;
+    padding: 0.4rem;
+    text-align: center;
+}
+
+.img-brand {
+    width: 120px;
+}
+
+/* Drawer */
+mat-drawer {
+    background-color: #151C54;
+}
+
+.fix-padding {
+    padding: 0.5rem 0rem;
+}
+
+.drawer-menu {
+    margin-top: 1.5rem;
+    padding: 0;
+}
+
+.drawer-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: #00FFFF;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding-left: 3rem;
+} 
+
+.drawer-menu-option {
+    transition: background-color 100ms ease-in-out;
+    margin-top: 4px;
+    padding: 0.5rem;
+    padding-left: 4rem;
+    padding-right: 3rem;
+    padding-top: 0.9rem;
+    }
+
+.drawer-menu-option:hover {
+    transition: background-color 100ms ease-in-out;
+    background-color:rgba(0, 255, 240, 0.1);
+    cursor: pointer;
+}
+
+.drawer-menu-option:active {
+    transition: background-color 200ms linear;
+    background-color: #00FFFF;
+}
+
+.drawer-menu-option:hover .drawer-menu-option-icon {
+    color: #00FFFF;
+}
+
+.drawer-menu-option:hover .drawer-menu-option-title {
+    color: #00FFFF;
+}
+
+.drawer-menu-option.active {
+    background-color: rgba(0, 255, 240, 0.1);
+    color: #00FFFF;
+    border-right: 3px solid #00FFFF;
+}
+
+.drawer-menu-option.active .drawer-menu-option-icon {
+    color: #00FFFF;
+}
+
+.drawer-menu-option.active .drawer-menu-option-title {
+    color: #00FFFF;
+}
+
+.drawer-menu-option-icon {
+    font-size: 24px;
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    color: whitesmoke;
+}
+
+.drawer-menu-option-img {
+    width: 22px;
+}
+
+.drawer-menu-option-title {
+    font-size: 14px;
+    font-weight: 500;
+    text-rendering: optimizeLegibility;
+    color: whitesmoke;
+    vertical-align: 7px;
+    margin-left: 10px;
+}
+
+/* Main */
+.header-main {
+    background-color: #fff;
+    padding-top: 0.7rem;
+    box-shadow: rgb(99 99 99 / 20%) 0px -1px 8px 0px;
+    padding-bottom: 0.7rem;
+}
+
+.name-profile-main {
+    color: rgb(30, 41, 59);
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: -0.6px;
+    text-rendering: optimizeLegibility;
+    margin-top: 2px;
+    float: right;
+}

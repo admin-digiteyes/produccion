@@ -1,0 +1,47 @@
+::ng-deep .snackbar .mat-simple-snackbar-action {
+    color: inherit;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.input-box {
+    margin-top: 1rem;
+}
+
+.input-file-box {
+    min-height: 65px;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.input-fileupload-box {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn-upload-file {
+    display: block;
+}
+
+.filename {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: rgb(100, 116, 139);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    cursor: help;
+}
+
+mat-progress-bar {
+    margin-top: 1rem;
+}
+
+.btn-cancel {
+    margin-right: 1rem;
+}

@@ -1,0 +1,84 @@
+::ng-deep .snackbar .mat-simple-snackbar-action {
+    color: inherit;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.input-box {
+    margin-top: 1rem;
+}
+
+.input-file-box {
+    min-height: 65px;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 8px;
+}
+
+.input-fileupload-box {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.btn-upload-file {
+    display: block;
+}
+
+.loading-box {
+    margin-top: 2rem;
+}
+
+.btn-cancel {
+    margin-right: 1rem;
+}
+
+.btn-select-template {
+    margin-top: 1rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 190px;
+}
+
+.btn-select-file {
+    margin-top: 1rem;
+}
+
+.box-btn-actions {
+    margin-top: 1rem;
+}
+
+.box-list-files {
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+        rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    height: 130px;
+    max-height: 130px;
+    overflow: auto;
+}
+
+.item-file {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: solid 0.0001rem lightgray;
+}
+
+.name-item-file {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+    width: 50%;
+    margin-top: 9px;
+    cursor: help;
+}
+
+.btn-remove-item-file {
+    float: right;
+}
+
+.main-box-select-file {
+    margin-bottom: 1rem;
+}

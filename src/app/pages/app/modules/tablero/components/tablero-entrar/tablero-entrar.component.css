@@ -1,0 +1,20 @@
+.card-body {
+    margin-top: 1rem;
+}
+
+.card {
+    position: relative;
+}
+
+.card mat-progress-bar {
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+
+.plan-inactive {
+    color: rgb(220, 38, 38);
+}

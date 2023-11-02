@@ -1,0 +1,21 @@
+<p class="animate__animated animate__fadeIn">
+    ¿Está seguro de realizar la operación?
+</p>
+<div class="row animate__animated animate__fadeIn">
+    <div class="col-6">
+        <button mat-button class="mx-auto d-block" (click)="deleteFile(false)">
+            Cancelar
+        </button>
+    </div>
+
+    <div class="col-6">
+        <button
+            mat-button
+            color="warn"
+            class="mx-auto d-block"
+            (click)="deleteFile(true)"
+        >
+            Continuar
+        </button>
+    </div>
+</div>
